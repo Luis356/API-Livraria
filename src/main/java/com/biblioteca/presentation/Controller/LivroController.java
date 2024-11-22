@@ -51,4 +51,10 @@ public class LivroController {
     public List<LivroDTO> listarLivrosDisponiveis() {
         return livroService.listarLivrosDisponiveis();
     }
+    
+    @GetMapping("/emprestados")
+    public List<LivroDTO> listarLivrosEmprestados() {
+        return livroService.listarLivrosEmprestados();
+    }
+    
 }

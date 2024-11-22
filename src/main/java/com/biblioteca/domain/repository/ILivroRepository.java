@@ -18,7 +18,11 @@ public interface ILivroRepository extends JpaRepository<Livro, Long> {
     // Buscar livros pelo autor
     Optional<List<Livro>> findByAutor(String autor);
 
-    List<Livro> findByDisponibilidadeTrue(); // Livros disponíveis para empréstimo
+    // Livros disponíveis para empréstimo
+    List<Livro> findByDisponibilidadeTrue(); 
+
+    // Livros emprestados
+    List<Livro> findByDisponibilidadeFalse(); 
 
     @Modifying
     @Query("UPDATE Livro l SET l.disponibilidade = :disponibilidade WHERE l.id = :id")

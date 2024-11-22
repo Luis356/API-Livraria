@@ -20,12 +20,9 @@ public interface ILivroService {
     // Buscar livro por ID
     LivroDTO buscarPorId(Long id);
 
-    // Buscar livro por título
-    LivroDTO buscarPorTitulo(String titulo);
-
-    // Buscar livros por autor
-    List<LivroDTO> buscarPorAutor(String autor);
-
     // Listar livros disponíveis
     List<LivroDTO> listarLivrosDisponiveis();
+    
+    // Listar livros emprestados
+    List<LivroDTO> listarLivrosEmprestados();
 }

@@ -33,7 +33,7 @@ public class LivroService implements ILivroService {
     public LivroDTO atualizarLivro(Long id, LivroDTO livroAtualizado) {
         Livro livro = livroRepository.findById(id)
                 .orElseThrow(() -> new CustomException("Livro não encontrado com o ID: " + id));
-        
+
         // Atualiza os campos do livro com os dados do DTO
         livro.setTitulo(livroAtualizado.getTitulo());
         livro.setAutor(livroAtualizado.getAutor());
@@ -71,24 +71,6 @@ public class LivroService implements ILivroService {
         return mapper.livroToDto(livro);
     }
 
-    // Buscar livro por título
-    @Override
-    public LivroDTO buscarPorTitulo(String titulo) {
-        Livro livro = livroRepository.findByTitulo(titulo)
-                .orElseThrow(() -> new CustomException("Livro não encontrado com o título: " + titulo));
-        return mapper.livroToDto(livro);
-    }
-
-    // Buscar livro por autor
-    @Override
-    public List<LivroDTO> buscarPorAutor(String autor) {
-        List<Livro> livros = livroRepository.findByAutor(autor)
-                .orElseThrow(() -> new CustomException("Nenhum livro encontrado com o autor: " + autor));
-        return livros.stream()
-                .map(mapper::livroToDto)
-                .collect(Collectors.toList());
-    }
-
     // Buscar livros disponíveis
     @Override
     public List<LivroDTO> listarLivrosDisponiveis() {
@@ -97,4 +79,14 @@ public class LivroService implements ILivroService {
                 .map(mapper::livroToDto)
                 .collect(Collectors.toList());
     }
+
+    // Buscar livros emprestados
+    @Override
+    public List<LivroDTO> listarLivrosEmprestados() {
+        List<Livro> livrosEmprestados = livroRepository.findByDisponibilidadeFalse();
+        return livrosEmprestados.stream()
+                .map(mapper::livroToDto)
+                .collect(Collectors.toList());
+    }
+
 }
